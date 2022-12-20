@@ -1,0 +1,18 @@
+def meeting(r,n):
+    if n == 0:
+        return 'Game On'
+    chairs = []
+    for room in r :
+        chairs = room[1]
+        member = len(room[0])
+        availability = chairs-member
+        if availability > 0:
+            if availability >= n:
+                chairs.append(n)
+                return chairs
+            else:
+                chairs.append(availability)
+                n -=availability
+        else:
+            chairs.append(0)
+    return "Not enough"
