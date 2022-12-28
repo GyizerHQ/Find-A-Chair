@@ -1,0 +1,11 @@
+def find_spare_chairs(meeting_rooms: list, required_chairs: int) ->[int]:
+    if required_chairs == 0:
+        return 1
+    spare_chairs = []
+    for room in meeting_rooms:
+        occupants, total_chairs = len(room[0]), room[1]
+        spare_chairs.append(total_chairs-occupants)
+        required_chairs -= (total_chairs-occupants)
+        if required_chairs == 0:
+            return spare_chairs
+    return 0
