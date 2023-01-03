@@ -1,0 +1,55 @@
+import java.io.*;
+import java.lang.*;
+import java.util.*;
+
+
+
+class Solution {
+    
+    public static ArrayList<Integer> findChair(Object[][] arr, int need)
+    {
+        ArrayList<Integer> ans = new ArrayList<>();
+        if(need == 0){
+            ans.add(1);
+            return ans;
+        }
+        int sum = 0;
+        for(int i = 0;i<arr.length && sum<=need;i++){
+            
+            int len =((String)arr[i][0]).length();
+            int remaining = ((Integer)arr[i][1]) - len;
+            
+            if(remaining >= 0){
+                ans.add(remaining);
+                sum+= remaining;
+            }
+            
+            
+        }
+        if(sum < need){
+            ans.clear();
+            ans.add(0);
+            return ans;
+        }
+        return ans;
+        
+    }
+    //driver code
+	public static void main (String[] args) {
+	   Scanner sc= new Scanner(System.in);
+	   System.out.println("Enter total meeting rooms :  ");
+	   int rSize = sc.nextInt();
+	   
+	   Object [][] a = new Object[rSize][2];
+	   for(int i = 0;i<rSize;i++){
+	       System.out.println("Enter filled seats and total seats for meeting room "+ (i+1) + ": ");
+	       a[i][0] = sc.next();
+	       a[i][1] = sc.nextInt();
+	   }
+	  
+	    
+	    
+	    System.out.println("Answer is: "+ findChair(a,4));
+	   
+	}
+}
