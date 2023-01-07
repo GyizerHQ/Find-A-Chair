@@ -18,3 +18,44 @@ no chairs free in room 0, take 1 from room 1, take 3 from room 2. no need to con
 ```
 
 If you need no chairs, return `1`. If there aren't enough spare chairs available, return `0`.
+
+
+Here my solution of this question---
+
+
+# According to the question firstly we have given an list of rooms and numbers of required chair...
+
+List1=[['XXX', 3], ['XXXXX', 6], ['XXXXXX', 9], ['XXX',2]]
+
+required_chairs=4
+
+
+# According to question meeting room can take up to 8 chairs...
+# And we have your 4 chairs already...and here find needed chais
+# There is solution of this question...
+
+# Find_chairs() function return needed chars or required chairs
+
+# If you need no chairs, return 1. If there aren't enough spare chairs available,return 0.
+
+def find_chairs(list1,needed_chair):
+    if needed_chair==0:
+        return 1
+    sum=0
+    list_of_chairs=[]
+    for i in list1:
+        chair=i[1]-len(i[0])
+        list_of_chairs.append(chair)
+        sum=sum+chair
+        if sum==needed_chair:
+            return list_of_chairs
+            break;
+    if sum < needed_chair:
+        return 0
+
+# Function Calling
+
+Ans_list=find_chairs(List1,required_chairs)
+print(Ans_list)
+        
+        
