@@ -18,3 +18,73 @@ no chairs free in room 0, take 1 from room 1, take 3 from room 2. no need to con
 ```
 
 If you need no chairs, return `1`. If there aren't enough spare chairs available, return `0`.
+
+Solution:
+[FindAChair.txt](https://github.com/Aryanx097/Find-A-Chair/files/10373140/FindAChair.txt)
+
+//Cpp code for FindAChair
+#include <iostream>
+#include <tuple>
+#include <list>
+#include <vector>
+using namespace std;
+
+vector<int> findChair(list<tuple<string, int>> rooml, int chairNeed)
+{
+    vector<int> takeChair;
+    int chAvail;
+    for (auto it = rooml.begin(); it != rooml.end(); it++)
+    {
+        chAvail = get<1>(*it) - get<0>(*it).length();
+        if (chAvail > 0)
+        {
+            if (chairNeed > chAvail)
+            {
+                chairNeed -= chAvail;
+                takeChair.push_back(chAvail);
+            }
+            else
+            {
+                takeChair.push_back(chairNeed);
+                return takeChair;
+            }
+        }
+        else
+            takeChair.push_back(0); // chair not available
+    }
+    return {0}; // not enough chair
+}
+
+int main()
+{
+    tuple<string, int> room;
+    list<tuple<string, int>> roomlist;
+    int chair, NumOfRooms;
+
+    cout << "Number of Rooms: ";
+    cin >> NumOfRooms;
+    cout << endl;
+
+    string st;
+    int ch;
+    for (int i = 0; i < NumOfRooms; i++)
+    {
+        cin >> st >> ch;
+        room = make_tuple(st, ch);
+        roomlist.push_back(room);
+    }
+
+    cout << "\nChairs Needed: ";
+    cin >> chair;
+
+    vector<int> vct = findChair(roomlist, chair);
+    if (chair > 0)
+    {
+        for (auto ele : vct)
+            cout << ele << " ";
+    }
+    else
+        cout << 1 << endl; // no chair needed
+
+    return 0;
+}
