@@ -18,3 +18,35 @@ no chairs free in room 0, take 1 from room 1, take 3 from room 2. no need to con
 ```
 
 If you need no chairs, return `1`. If there aren't enough spare chairs available, return `0`.
+
+
+## **Python Solution :**
+
+```
+def solve(list,chairs_needed): # Function to solve question
+    if chairs_needed==0 :
+        print("No chairs needed")
+        # Return 1 as mentioned in question
+        return 1
+    res = [] # Result array which return array of integers 
+    for i in list:
+        available = (i[1]-len(i[0])) # Available chairs 
+        if available>0 :
+            if chairs_needed>available:
+                res.append(available)
+                chairs_needed-=available
+            else : 
+                res.append(chairs_needed)
+                return res
+        else : 
+            res.append(0)
+    
+    print("There aren't spare chairs available")
+    # Return 0 as mentioned in question
+    return 0
+
+list = [['XXX', 4], ['XXXXX', 6], ['XXXXXX', 9], ['XXX',2]]
+chairs = 3
+print(solve(list,chairs))
+
+```
