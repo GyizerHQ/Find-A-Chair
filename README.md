@@ -48,4 +48,5 @@ def solve(list,chairs_needed): # Function to solve question
 list = [['XXX', 4], ['XXXXX', 6], ['XXXXXX', 9], ['XXX',2]]
 chairs = 3
 print(solve(list,chairs))
+
 ```
