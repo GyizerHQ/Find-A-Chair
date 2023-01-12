@@ -30,26 +30,22 @@ def solve(list,chairs_needed): # Function to solve question
         return 1
     res = [] # Result array which return array of integers 
     for i in list:
-        available = abs(len(i[0])-i[1]) # Available chairs 
-        if chairs_needed>=available :
-            res.append(available)
-            chairs_needed-=available
-        else : 
-            if chairs_needed != 0 : 
+        available = (i[1]-len(i[0])) # Available chairs 
+        if available>0 :
+            if chairs_needed>available:
+                res.append(available)
+                chairs_needed-=available
+            else : 
                 res.append(chairs_needed)
-            break
-    if chairs_needed>0 :
-        print("There aren't spare chairs available")
-        # Return 0 as mentioned in question
-        return 0
-    return res
+                return res
+        else : 
+            res.append(0)
+    
+    print("There aren't spare chairs available")
+    # Return 0 as mentioned in question
+    return 0
 
-list = [['XXX', 3], ['XXXXX', 6], ['XXXXXX', 9], ['XXX',2]]
-chairs = 4
+list = [['XXX', 4], ['XXXXX', 6], ['XXXXXX', 9], ['XXX',2]]
+chairs = 3
 print(solve(list,chairs))
-
-# I have tested on sample input. 
-# The output is correct and the program can be extended by taking user input, 
-# To keep it simple, I have tested it on the sample testcase with multiple values of chairs needed.
-
 ```
