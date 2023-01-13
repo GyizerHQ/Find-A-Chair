@@ -1,0 +1,66 @@
+import java.util.*;
+import java.util.Scanner;
+public class FindChair{
+    
+    public static int[] Solve(Object[][] tuple,int ReqAm,int total )
+{
+    int sum=0;
+    int[] array = new int[total];
+    for(int i=0;i<total;i++)
+    {
+      String people = (String)tuple[i][0];
+      int len=people.length();
+      Integer chairs=(Integer)tuple[i][1];
+      prev_sum=sum;
+      array[i]=(chairs-len > 0) ? chairs-len : 0;
+      sum=sum+array[i];
+      if(sum>ReqAm)     // exception handling at last iteration
+      {
+        array[i]=ReqAm-prev_sum; // overwriting last array value
+        break;
+      }
+    }
+    int finalSum=0 ;     
+    for(int i=0;i<total;i++)finalSum+=array[i];
+    if(finalSum < ReqAm )  
+    {
+    int[] tempArr=new int[1]; // creating empty array for returning exceptional values
+    if(finalSum==0)tempArr[0]=1; // exception handling when no chairs available 
+    else tempArr[0]=0;          // exception handling when less chairs are available than required 
+    return tempArr;
+    }
+    else return array;
+    
+}
+ 
+     public static void main(String[] args) 
+{
+      System.out.print("Enter how many Meeting Rooms you want to add : ");
+      Scanner sc = new Scanner(System.in);
+      int input = sc.nextInt();
+      System.out.print("Enter how many chairs you want to fetch : ");
+      int reqAm= sc.nextInt();
+      Object[][] arr= new Object[input][2]; // Object class type 2D array can store integer and string both
+      
+      // Assume required chairs : 5 , Meeting rooms : 5
+      // Input can be taken through Scanner class 
+        
+        arr[0][0]="XXX";
+        arr[0][1]=3;
+        arr[1][0]="XXXXX";
+        arr[1][1]=6;
+        arr[2][0]="XXXXXX";
+        arr[2][1]=9;
+        arr[3][0]="XXX";
+        arr[3][1]=2;
+        arr[4][0]="XXXX";
+        arr[4][1]=5;
+        
+      int[] solution= Solve(arr,reqAm,input);
+      if(solution.length==1)System.out.println("Not enough chairs found & function returned :" + solution[0]);
+      else for(int i=0 ;i<input;i++)System.out.print(solution[i]+",");  
+      
+      // Output : 0,1,3,0,1
+        
+        }
+}
