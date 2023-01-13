@@ -1,0 +1,75 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class Data
+{
+    private String status;
+    private int chairs;
+    
+   public Data(String s,int c ) 
+   {
+       status=s;
+       chairs=c;
+   }
+   public int getOccupied()
+   {
+       return this.status.length();
+   }
+   public int getTotalChairs()
+   {
+       return this.chairs;
+   }
+}
+class Codechef
+{
+	public static void main (String[] args) throws java.lang.Exception
+	{
+		ArrayList<Data>al= new ArrayList<Data>();
+		al.add(new Data("XXX", 3));
+		al.add(new Data("XXXXX", 10));
+		al.add(new Data("XXXXXX", 9));
+		al.add(new Data("XXX",2));
+		
+		int requiredChairs=4;
+
+		ArrayList<Integer>result= count(al,requiredChairs);
+         System.out.println(result);
+		
+	}
+	public static ArrayList<Integer> count (ArrayList<Data>al, int requiredChairs)
+	{
+	     ArrayList<Integer> result= new ArrayList<Integer>();
+	    if(requiredChairs==0)
+	    {
+	        result.add(1);
+	        return result;
+	    }
+	   
+	    for(Data d:al)
+	    {
+	         if(requiredChairs==0)
+	         break;
+	         
+	       int taken=d.getTotalChairs()-d.getOccupied();
+	       if(taken>requiredChairs)
+	       {    
+	           result.add(requiredChairs);
+	           requiredChairs=0;
+	           break;
+	       }
+	       else
+	       {
+	           result.add(taken);
+	           requiredChairs-=taken;
+	       }
+	      
+	    }
+	    if(requiredChairs>0)
+	    {
+	    result.clear();
+	    result.add(0);
+	    }
+	    return result;
+	}
+}
